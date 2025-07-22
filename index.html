@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Hub - Guidero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #f8fafc 0%, #e9ecef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #222;
+        }
+        .hub-container {
+            text-align: center;
+            background: #fff;
+            padding: 50px 60px;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(60,72,88,0.12);
+        }
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #495057;
+            margin-bottom: 40px;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .nav-btn {
+            text-decoration: none;
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-btn.tasks-btn {
+            background: linear-gradient(90deg, #667eea 0%, #45b7d1 100%);
+            box-shadow: 0 4px 12px rgba(102,126,234,0.2);
+        }
+        .nav-btn.members-btn {
+            background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+            box-shadow: 0 4px 12px rgba(40,167,69,0.2);
+        }
+        .nav-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(102,126,234,0.2);
+        }
+        .nav-btn.members-btn:hover {
+            box-shadow: 0 8px 24px rgba(40,167,69,0.25);
+        }
+    </style>
+</head>
+<body>
+    <div class="hub-container">
+        <h1>Project Hub - Guidero</h1>
+        <p>Please choose a section to continue.</p>
+        <div class="nav-buttons">
+            <a href="daily_task_update.html" class="nav-btn tasks-btn">
+                <i class="fa-solid fa-clipboard-list"></i> Daily Task Update
+            </a>
+            <a href="members.html" class="nav-btn members-btn">
+                <i class="fa-solid fa-users"></i> Committee Members
+            </a>
+        </div>
+    </div>
+</body>
+</html>
