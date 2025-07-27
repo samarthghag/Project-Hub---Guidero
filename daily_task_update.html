@@ -452,6 +452,24 @@
         // Load tasks from tasks.json
         async function loadTasks() {
             try {
+                // Try to load from localStorage first
+                const storedTasks = localStorage.getItem('tasks');
+                if (storedTasks) {
+                    tasks = JSON.parse(storedTasks);
+                } else {
+                    // Fall back to JSON file if nothing in localStorage
+                    await loadFromJsonFile();
+                }
+            } catch (e) {
+                console.error("Could not load tasks. Starting with an empty list.", e);
+                tasks = [];
+            }
+            renderTasks();
+            updateSummary();
+        }
+
+        async function loadFromJsonFile() {
+            try {
                 const response = await fetch('tasks.json?v=' + Date.now()); // Prevent caching
                 if (!response.ok) throw new Error('Network response was not ok');
                 tasks = await response.json();
@@ -459,14 +477,13 @@
                 console.error("Could not load tasks.json. Starting with an empty list.", e);
                 tasks = [];
             }
-            renderTasks();
-            updateSummary();
         }
 
         // Save tasks to tasks.json (placeholder)
         function saveTasks() {
-            console.log('Saving tasks (simulation):', JSON.stringify(tasks, null, 2));
-            // In a real app, this would be a fetch PUT/POST request to a backend server.
+            // Save to localStorage
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            console.log('Tasks saved to localStorage:', tasks);
         }
 
         // Add new task

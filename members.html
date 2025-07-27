@@ -166,7 +166,24 @@
         let members = [];
         let editingMemberId = null;
 
-        async function init() {
+        function init() {
+            try {
+                // Try to load from localStorage first
+                const storedMembers = localStorage.getItem('members');
+                if (storedMembers) {
+                    members = JSON.parse(storedMembers);
+                } else {
+                    // Fall back to JSON file if nothing in localStorage
+                    loadFromJsonFile();
+                }
+            } catch (e) {
+                console.error("Could not load members. Starting with an empty list.", e);
+                members = [];
+            }
+            renderMembers();
+        }
+
+        async function loadFromJsonFile() {
             try {
                 const response = await fetch('members.json?v=' + Date.now());
                 if (!response.ok) throw new Error('Network response was not ok');
@@ -175,7 +192,23 @@
                 console.error("Could not load members.json. Starting with an empty list.", e);
                 members = [];
             }
+        }
+
+        function saveMember(memberId) {
+            editingMemberId = null;
+            // Save to localStorage
+            localStorage.setItem('members', JSON.stringify(members));
+            console.log("Saving members:", members);
             renderMembers();
+        }
+
+        function deleteMember(memberId) {
+            if (confirm('Are you sure?')) {
+                members = members.filter(m => m.id !== memberId);
+                // Update localStorage after deletion
+                localStorage.setItem('members', JSON.stringify(members));
+                renderMembers();
+            }
         }
 
         function renderMembers() {
@@ -216,20 +249,6 @@
         function editMember(memberId) {
             editingMemberId = memberId;
             renderMembers();
-        }
-
-        function saveMember(memberId) {
-            editingMemberId = null;
-            // In a real app, you'd save this to the server.
-            console.log("Saving members:", members);
-            renderMembers();
-        }
-
-        function deleteMember(memberId) {
-            if (confirm('Are you sure?')) {
-                members = members.filter(m => m.id !== memberId);
-                renderMembers();
-            }
         }
 
         function updateMember(memberId, field, value) {
